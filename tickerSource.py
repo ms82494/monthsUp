@@ -67,7 +67,9 @@ mistakeNames = ["CHINA SECURITY & SURVEILLANCE TECHNOLOGY INC.",
     "Elmira Savings Bank",
     "Angel Oak Dynamic Financial Strategies Income Term Trust",
     "PIMCO Dynamic Income Opportunities Fund",
-    "First Trust High Yield Opportunities 2027 Term Fund"]
+    "First Trust High Yield Opportunities 2027 Term Fund",
+    "Sprott Focus Trust Inc",
+    "Qurate Retail Inc - Series B"]
 dropMistakes = df[df['name'].isin(mistakeNames)].index
 df.drop(dropMistakes, inplace=True)
 
@@ -101,5 +103,8 @@ df.drop(dropyoung, inplace=True)
 
 df.drop(['assetType', 'delistingDate', 'status'], axis=1, inplace=True)
 logger.info(f"Number of tickers with IPO date 10+ years ago: {len(df)}")
+
+dropduplicated = df[df.duplicated()].index
+df.drop(dropduplicated, inplace=True)
 
 df.to_csv(TICKERFILE, index=False)
